@@ -438,11 +438,12 @@
         // 多言語対応のための翻訳テキストオブジェクト
         const translations = {
             ja: {
-                mainTitle: "第106回草月いけばな展 花材注文書",
-                subTitle: "オンラインオーダーシート",
+                mainTitle: "The 106th Sogetsu Annual Exhibition Flower Material Order
+第106回草月いけばな展 花材注文書",
+                subTitle: "Online Order Sheet オンラインオーダーシート",
                 toBloomwinkel: "To　De Bloemen winkel ブルームンウィンクル",
                 submissionDeadline: "以下の情報をご記入の上、スケッチと併せて**9月18日(木)まで**に上記のEメールアドレスへご提出ください。",
-                selectLanguageLabel: "言語選択:",
+                selectLanguageLabel: "selectLanguage 言語選択:",
                 customerInfoTitle: "お客様情報",
                 nameLabel: "お名前:",
                 emailLabel: "E-mailアドレス:",
