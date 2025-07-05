@@ -585,7 +585,8 @@
         const translations = {
             ja: {
                 mainTitle: "The 106th Sogetsu Annual Exhibition Flower Material Order
-                    第106回草月いけばな展 花材注文書",
+                    The 106th Sogetsu Annual Exhibition Flower Material Order
+            第106回草月いけばな展 花材注文書",
                 subTitle: "Online Order Sheet オンラインオーダーシート",
                 toBloomwinkel: "To　De Bloemen winkel ブルームンウィンクル",
                 submissionDeadline: "以下の情報をご記入の上、スケッチと併せて**9月18日(木)まで**に上記のEメールアドレスへご提出ください。
@@ -664,179 +665,790 @@
                 submitButton: "Submit"
             },
             zh: {
-                mainTitle: "第106届草月花道展 花材订单",
-                subTitle: "在线订单表格",
-                toBloomwinkel: "致 De Bloemen winkel ブルームウィンクル",
-                submissionDeadline: "请填写以下详细信息，并连同草图于**9月18日（星期四）前**提交至上述邮箱地址。",
-                selectLanguageLabel: "选择语言:",
-                customerInfoTitle: "客户信息",
-                nameLabel: "姓名:",
-                emailLabel: "电子邮件地址:",
-                exhibitionInfoTitle: "参展信息",
-                termLabel: "出展期间:",
-                firstTermRadio: "前期",
-                secondTermRadio: "后期",
-                firstTermText: "前期 (First Term)",
-                secondTermText: "后期 (Second Term)",
-                flowerPlaceNoLabel: "花席编号:",
-                arrangementSizeLabel: "作品尺寸 (最大):",
-                widthLabel: "宽:",
-                depthLabel: "深:",
-                heightLabel: "高:",
-                arrangingDateTimeLabel: "插花日期和接待时间:",
-                materialOrderTitle: "花材订购",
-                materialOrderInstruction: "请在下表中填写您希望的花材。如有需要，请添加行。",
-                materialNameHeader: "花材名称",
-                colorHeader: "颜色",
-                quantityHeader: "订购数量",
-                sizeHeader: "大致花材尺寸",
-                noteHeader: "备注",
-                addMaterialRowButton: "添加行",
-                alternativeOptionsTitle: "替代选项 (必填)",
-                alternativeOptionsInstruction: "如果偏好的花材难以获得，请务必填写替代选项。",
-                attachmentsTitle: "附件：草图/参考资料",
-                sketchUploadLabel: "附上草图 (PDF, JPEG, PNG等):",
-                otherFilesUploadLabel: "附上其他参考文件 (允许多个附件):",
-                attachmentNote: "※上传的文件将在提交表单时处理。实际的文件上传功能需要服务器端实现。",
-                paymentInfoTitle: "关于付款",
-                paymentInfoDetails: "账单金额将由花店“De Bloemen winkel”通知您。您可以通过信用卡支付。",
-                submitButton: "提交"
-            },
-            ko: {
-                mainTitle: "제106회 소게쓰 이케바나전 화재 주문서",
-                subTitle: "온라인 주문 시트",
-                toBloomwinkel: "De Bloemen winkel 불룸빙켈",
-                submissionDeadline: "아래 정보를 자세히 작성하시고 스케치와 함께 **9월 18일 (목)까지** 위 이메일 주소로 제출해 주십시오.",
-                selectLanguageLabel: "언어 선택:",
-                customerInfoTitle: "고객 정보",
-                nameLabel: "이름:",
-                emailLabel: "이메일 주소:",
-                exhibitionInfoTitle: "출전 정보",
-                termLabel: "출전 기간:",
-                firstTermRadio: "전기",
-                secondTermRadio: "후기",
-                firstTermText: "전기 (First Term)",
-                secondTermText: "후기 (Second Term)",
-                flowerPlaceNoLabel: "꽃자리 번호:",
-                arrangementSizeLabel: "작품 크기 (최대):",
-                widthLabel: "가로:",
-                depthLabel: "세로:",
-                heightLabel: "높이:",
-                arrangingDateTimeLabel: "꽂는 날짜 및 접수 시간:",
-                materialOrderTitle: "화재 주문",
-                materialOrderInstruction: "아래 표에 원하는 화재를 기입해 주십시오. 필요에 따라 행을 추가하십시오.",
-                materialNameHeader: "화재명",
-                colorHeader: "색상",
-                quantityHeader: "발주 수",
-                sizeHeader: "대략적인 화재 크기",
-                noteHeader: "비고",
-                addMaterialRowButton: "행 추가",
-                alternativeOptionsTitle: "대체 후보 (필수)",
-                alternativeOptionsInstruction: "원하는 화재를 구하기 어려울 경우, 반드시 대체 후보를 기입해 주십시오.",
-                attachmentsTitle: "스케치/참고 자료 첨부",
-                sketchUploadLabel: "스케치 첨부 (PDF, JPEG, PNG 등):",
-                otherFilesUploadLabel: "기타 참고 자료 첨부 (다중 첨부 가능):",
-                attachmentNote: "※업로드된 파일はフォーム送信時に処理されます。実際のファイルアップロード機能は、サーバーサイドの実装が必要です。",
-                paymentInfoTitle: "결제 정보",
-                paymentInfoDetails: "청구 금액은 꽃집 'De Bloemen winkel'에서 연락드립니다. 신용카드로 결제할 수 있습니다。",
-                submitButton: "제출"
-            }
-        };
+                mainTitle: "第106届草月花道展 花材订单",import React, { useState } from 'react';
+import { Flower2, Mail, Calendar, Clock, User, MapPin, Upload, X, Globe } from 'lucide-react';
 
-        // 言語を更新する関数
-        function updateLanguage(lang) {
-            document.querySelectorAll('[data-key]').forEach(element => {
-                const key = element.getAttribute('data-key');
-                if (translations[lang] && translations[lang][key]) {
-                    // input placeholderやlabel for属性はそのまま
-                    if (element.tagName === 'INPUT' && element.hasAttribute('placeholder')) {
-                        // placeholderは直接変更
-                        element.setAttribute('placeholder', translations[lang][key]);
-                    } else if (element.tagName === 'SPAN' && (key.includes('Radio') || key.includes('Checkbox') || key.includes('TermText'))) {
-                        // ラジオボタンやチェックボックスのラベルテキスト
-                        element.textContent = translations[lang][key];
-                    } else if (element.tagName === 'TH' || element.tagName === 'P' || element.tagName === 'H1' || element.tagName === 'H2' || element.tagName === 'H3' || element.tagName === 'BUTTON' || (element.tagName === 'LABEL' && !element.classList.contains('inline-flex'))) {
-                        // その他の要素のテキスト
-                        element.innerHTML = translations[lang][key]; // HTMLを含む可能性があるのでinnerHTMLを使用
-                    }
-                }
-            });
-        }
+// FormField, ImageUpload, LanguageToggle コンポーネントはApp.tsx内に直接定義します
+// (通常は別のファイルに分割しますが、Canvasの制約上、単一ファイルにまとめます)
 
-        // 行追加機能の関数
-        function addTableRow(tableId) {
-            const tableBody = document.querySelector(`#${tableId} tbody`);
-            const newRow = tableBody.insertRow();
-            // カラムの数に合わせてセルとinputを追加
-            for (let i = 0; i < 5; i++) {
-                const newCell = newRow.insertCell();
-                const input = document.createElement('input');
-                input.type = (i === 2) ? 'number' : 'text'; // '発注数'は数値入力
-                input.name = `${tableId === 'material-table' ? 'material' : 'altMaterial'}${i === 0 ? 'Name' : i === 1 ? 'Color' : i === 2 ? 'Quantity' : i === 3 ? 'Size' : 'Note'}[]`;
-                input.classList.add('w-full', 'p-2', 'border', 'rounded-md');
-                newCell.appendChild(input);
-            }
-        }
+interface FormFieldProps {
+  label: string;
+  required?: boolean;
+  children: React.ReactNode;
+}
 
-        // 初期ロード時と言語選択変更時に言語を更新
-        document.addEventListener('DOMContentLoaded', () => {
-            const languageSelect = document.getElementById('language-select');
+function FormField({ label, required = false, children }: FormFieldProps) {
+  return (
+    <div className="space-y-2">
+      <label className="block text-sm font-semibold text-gray-700">
+        {label}
+        {required && <span className="text-red-500 ml-1">*</span>}
+      </label>
+      {children}
+    </div>
+  );
+}
 
-            // 初回ロード時の言語設定
-            updateLanguage(languageSelect.value);
+interface ImageUploadProps {
+  onImageChange: (files: File[]) => void;
+  label: string;
+  maxFiles?: number;
+}
 
-            // 言語選択が変更されたときの処理
-            languageSelect.addEventListener('change', (event) => {
-                updateLanguage(event.target.value);
-            });
+function ImageUpload({ onImageChange, label, maxFiles = 3 }: ImageUploadProps) {
+  const [images, setImages] = useState<File[]>([]);
+  const [previews, setPreviews] = useState<string[]>([]);
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
 
-            // 行追加ボタンのイベントリスナー
-            document.getElementById('add-material-row').addEventListener('click', () => addTableRow('material-table'));
-            document.getElementById('add-alternative-row').addEventListener('click', () => addTableRow('alternative-table'));
+  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(event.target.files || []);
+    const validFiles = files.filter(file => file.type.startsWith('image/'));
+    
+    if (images.length + validFiles.length > maxFiles) {
+      // alertは使用できないため、メッセージボックスの代替としてconsole.logを使用
+      console.log(`Maximum ${maxFiles} images allowed`);
+      return;
+    }
 
-            // フォーム送信処理 (ここでは簡易的なもの。実際にはサーバーサイドにデータを送信)
-            document.querySelector('form').addEventListener('submit', (event) => {
-                event.preventDefault(); // デフォルトのフォーム送信を防止
-                const formData = new FormData(event.target);
-                const data = {};
-                for (let [key, value] of formData.entries()) {
-                    // 配列形式のデータは適切に処理
-                    if (key.endsWith('[]')) {
-                        const baseKey = key.slice(0, -2);
-                        if (!data[baseKey]) {
-                            data[baseKey] = [];
-                        }
-                        data[baseKey].push(value);
-                    } else {
-                        data[key] = value;
-                    }
-                }
-                console.log('Form Data:', data);
+    const newImages = [...images, ...validFiles];
+    setImages(newImages);
+    onImageChange(newImages);
 
-                // ここで、ファイルを処理するコードを追加できます。
-                // FileReader API を使用してファイルを読み込み、Base64エンコードしてサーバーに送信する方法があります。
-                // 例:
-                // const sketchFiles = document.getElementById('sketchUpload').files;
-                // if (sketchFiles.length > 0) {
-                //     // ファイルをBase64に変換し、dataオブジェクトに追加
-                // }
+    // Create previews
+    validFiles.forEach(file => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setPreviews(prev => [...prev, e.target?.result as string]);
+      };
+      reader.readAsDataURL(file);
+    });
+  };
 
-                // 実際のアプリケーションでは、ここでFetch APIなどを使ってサーバーにデータを送信します。
-                // 例:
-                // fetch('/submit-order', {
-                //     method: 'POST',
-                //     body: JSON.stringify(data),
-                //     headers: {
-                //         'Content-Type': 'application/json'
-                //     }
-                // }).then(response => response.json())
-                //   .then(result => console.log('Success:', result))
-                //   .catch(error => console.error('Error:', error));
+  const removeImage = (index: number) => {
+    const newImages = images.filter((_, i) => i !== index);
+    const newPreviews = previews.filter((_, i) => i !== index);
+    setImages(newImages);
+    setPreviews(newPreviews);
+    onImageChange(newImages);
+  };
 
-                alert(translations[languageSelect.value].submitButton + "されました！(実際の送信は行われません)");
-            });
-        });
-    </script>
+  return (
+    <div className="space-y-4">
+      <label className="block text-sm font-semibold text-gray-700 mb-2">
+        {label}
+      </label>
+      
+      <div
+        onClick={() => fileInputRef.current?.click()}
+        className="border-2 border-dashed border-green-300 rounded-lg p-6 text-center cursor-pointer hover:border-green-400 hover:bg-green-50 transition-all"
+      >
+        <Upload className="w-8 h-8 text-green-500 mx-auto mb-2" />
+        <p className="text-sm text-gray-600 mb-1">Click to upload sketches/images</p>
+        <p className="text-xs text-gray-500">PNG, JPG up to 10MB (max {maxFiles} files)</p>
+      </div>
+
+      <input
+        ref={fileInputRef}
+        type="file"
+        multiple
+        accept="image/*"
+        onChange={handleFileSelect}
+        className="hidden"
+      />
+
+      {previews.length > 0 && (
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+          {previews.map((preview, index) => (
+            <div key={index} className="relative group">
+              <img
+                src={preview}
+                alt={`Preview ${index + 1}`}
+                className="w-full h-24 sm:h-32 object-cover rounded-lg shadow-sm"
+              />
+              <button
+                onClick={() => removeImage(index)}
+                className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+interface LanguageToggleProps {
+  language: 'en' | 'ja' | 'zh-CN' | 'ko';
+  onToggle: (lang: 'en' | 'ja' | 'zh-CN' | 'ko') => void;
+  selectLanguageLabel: string; // 新しいプロップを追加
+}
+
+function LanguageToggle({ language, onToggle, selectLanguageLabel }: LanguageToggleProps) {
+  return (
+    <div className="flex items-center gap-2 bg-white rounded-full p-2 shadow-md">
+      <Globe className="w-4 h-4 text-green-600" />
+      <span className="text-sm font-medium text-gray-700">{selectLanguageLabel}</span> {/* ラベルを追加 */}
+      <button
+        onClick={() => onToggle('ja')}
+        className={`px-3 py-1 rounded-full text-sm font-medium transition-all ${
+          language === 'ja'
+            ? 'bg-green-600 text-white shadow-sm'
+            : 'text-gray-600 hover:text-green-600'
+        }`}
+      >
+        日本語
+      </button>
+      <button
+        onClick={() => onToggle('en')}
+        className={`px-3 py-1 rounded-full text-sm font-medium transition-all ${
+          language === 'en'
+            ? 'bg-green-600 text-white shadow-sm'
+            : 'text-gray-600 hover:text-green-600'
+        }`}
+      >
+        EN
+      </button>
+      <button
+        onClick={() => onToggle('zh-CN')}
+        className={`px-3 py-1 rounded-full text-sm font-medium transition-all ${
+          language === 'zh-CN'
+            ? 'bg-green-600 text-white shadow-sm'
+            : 'text-gray-600 hover:text-green-600'
+        }`}
+      >
+        中文
+      </button>
+      <button
+        onClick={() => onToggle('ko')}
+        className={`px-3 py-1 rounded-full text-sm font-medium transition-all ${
+          language === 'ko'
+            ? 'bg-green-600 text-white shadow-sm'
+            : 'text-gray-600 hover:text-green-600'
+        }`}
+      >
+        한국어
+      </button>
+    </div>
+  );
+}
+
+// 多言語対応のための翻訳データ
+const translations = {
+  ja: {
+    mainTitle: "The 106th Sogetsu Annual Exhibition Flower Material Order
+        第106回草月いけばな展 花材注文書",
+    mainSubtitle: "Online Order Sheet",
+    selectLanguageLabel: "Select Language:言語選択:",
+    appTitle: "第106回草月いけばな展",
+    appSubtitle: "花材注文書",
+    contactTo: "宛先：De Bloemenwinkel ブルームウィンクル",
+    contactEmail: "E-mail: deblwinkel@gmail.com",
+    deadline: "下記の情報を詳細に記入し、スケッチと併せて9月18日（木）までに上記のEメールアドレスへご提出ください。",
+    paymentInfo: "請求金額は花屋「Bloemenwinkel」よりお知らせいたします。クレジットカードでお支払いいただけます。",
+    personalInfoSection: "お客様情報",
+    nameLabel: "お名前",
+    namePlaceholder: "お名前をご記入ください",
+    phoneLabel: "電話番号",
+    phonePlaceholder: "電話番号をご記入ください",
+    emailLabel: "E-mailアドレス",
+    emailPlaceholder: "メールアドレスをご記入ください",
+    exhibitorNumberLabel: "出品者番号 / ID",
+    exhibitorPlaceholder: "出品者番号をご記入ください",
+    exhibitionInfoSection: "出展情報",
+    exhibitionPeriodLabel: "出展期間",
+    periodPlaceholder: "展示期間を選択してください",
+    firstPeriod: "第一期",
+    secondPeriod: "第二期",
+    seatNumberLabel: "花席No.",
+    seatPlaceholder: "花席番号をご記入ください",
+    artworkSizeLabel: "作品サイズ (最大)",
+    widthLabel: "W:",
+    depthLabel: "D:",
+    heightLabel: "H:",
+    sizePlaceholder: "サイズをご記入ください",
+    arrangementDateReceptionTimeLabel: "いけこみ日と受付時間",
+    arrangementDatePlaceholder: "日付を選択",
+    receptionTimePlaceholder: "時間を選択",
+    morning: "午前（9:00-12:00）",
+    afternoon: "午後（12:00-17:00）",
+    evening: "夕方（17:00-20:00）",
+    flowerOrderDetailsSection: "花材注文詳細",
+    tableHeaderItem: "項目",
+    tableHeaderDetail: "詳細記入欄",
+    flowerNameLabel: "花材名",
+    colorLabel: "色",
+    quantityLabel: "発注数",
+    approxMaterialLabel: "おおよその花材",
+    sizeNotesLabel: "サイズ備考",
+    flowerNamePlaceholder: "必要な花材について詳しくご記入ください（例：バラ 赤 5本、カスミソウ 白 1束）",
+    colorPlaceholder: "希望する色をご記入ください（例：赤系、白と緑）",
+    quantityPlaceholder: "必要な数量をご記入ください（例：各10本、合計20個）",
+    approxMaterialPlaceholder: "おおよその花材の種類やイメージをご記入ください（例：枝物中心、小花で繊細に）",
+    sizeNotesPlaceholder: "サイズに関する特別な要望や追加の備考があればご記入ください（例：高さ1m以内、幅50cm程度）",
+    sketchUpload: "スケッチ / 参考画像のアップロード",
+    submitButton: "注文を送信",
+    required: "必須",
+    optional: "任意",
+    orderSubmitted: "注文が正常に送信されました！"
+  },
+  en: {
+    mainTitle: "The 106th Sogetsu Annual Exhibition Flower Material Order",
+    mainSubtitle: "Online Order Sheet",
+    selectLanguageLabel: "Select Language:",
+    appTitle: "The 106th Sogetsu Annual Exhibition",
+    appSubtitle: "Flower Material Order Form",
+    contactTo: "To: De Bloemenwinkel Bloemenwinkel",
+    contactEmail: "E-mail: deblwinkel@gmail.com",
+    deadline: "Please fill in the following information in detail and submit it with your sketch to the above email address by Thursday, September 18th.",
+    paymentInfo: "The billing amount will be communicated to you by the florist \"Bloemenmwinkel\". You can pay by credit card.",
+    personalInfoSection: "Customer Information",
+    nameLabel: "Full Name",
+    namePlaceholder: "Enter your full name",
+    phoneLabel: "Phone Number",
+    phonePlaceholder: "Enter your phone number",
+    emailLabel: "E-mail Address",
+    emailPlaceholder: "Enter your email address",
+    exhibitorNumberLabel: "Exhibitor Number / ID",
+    exhibitorPlaceholder: "Enter your exhibitor number",
+    exhibitionInfoSection: "Exhibition Information",
+    exhibitionPeriodLabel: "Exhibition Period",
+    periodPlaceholder: "Select exhibition period",
+    firstPeriod: "First Period",
+    secondPeriod: "Second Period",
+    seatNumberLabel: "Seat Number",
+    seatPlaceholder: "Enter your seat number",
+    artworkSizeLabel: "Artwork Size (Max)",
+    widthLabel: "W:",
+    depthLabel: "D:",
+    heightLabel: "H:",
+    sizePlaceholder: "Enter size",
+    arrangementDateReceptionTimeLabel: "Arrangement Date and Reception Time",
+    arrangementDatePlaceholder: "Select date",
+    receptionTimePlaceholder: "Select time",
+    morning: "Morning (9:00-12:00)",
+    afternoon: "Afternoon (12:00-17:00)",
+    evening: "Evening (17:00-20:00)",
+    flowerOrderDetailsSection: "Flower Material Order Details",
+    tableHeaderItem: "Item",
+    tableHeaderDetail: "Details",
+    flowerNameLabel: "Flower Name",
+    colorLabel: "Color",
+    quantityLabel: "Quantity",
+    approxMaterialLabel: "Approx. Materials",
+    sizeNotesLabel: "Size/Notes",
+    flowerNamePlaceholder: "Please describe the required flower materials in detail (e.g., Red Roses 5, White Gypsophila 1 bunch)",
+    colorPlaceholder: "Please specify preferred colors (e.g., Red tones, White and Green)",
+    quantityPlaceholder: "Please specify the required quantity (e.g., 10 of each, 20 total)",
+    approxMaterialPlaceholder: "Please describe the approximate type or image of materials (e.g., branch-focused, delicate with small flowers)",
+    sizeNotesPlaceholder: "Please add any special requests or notes regarding size (e.g., within 1m height, approx 50cm width)",
+    sketchUpload: "Upload Sketch / Reference Images",
+    submitButton: "Submit Order",
+    required: "Required",
+    optional: "Optional",
+    orderSubmitted: "Order submitted successfully!"
+  },
+  'zh-CN': {
+    mainTitle: "第106届草月插花展 花材订购表",
+    mainSubtitle: "在线订购表",
+    selectLanguageLabel: "选择语言:",
+    appTitle: "第106届草月插花展",
+    appSubtitle: "花材订购表",
+    contactTo: "致：De Bloemenwinkel Bloemenmwinkel",
+    contactEmail: "电子邮件: deblwinkel@gmail.com",
+    deadline: "请详细填写以下信息，并于9月18日（星期四）前连同草图提交至上述电子邮件地址。",
+    paymentInfo: "账单金额将由花店“Bloomwinkel”通知您。您可以通过信用卡支付。",
+    personalInfoSection: "客户信息",
+    nameLabel: "姓名",
+    namePlaceholder: "请输入您的姓名",
+    phoneLabel: "电话号码",
+    phonePlaceholder: "请输入您的电话号码",
+    emailLabel: "电子邮件地址",
+    emailPlaceholder: "请输入您的电子邮件地址",
+    exhibitorNumberLabel: "参展商编号 / ID",
+    exhibitorPlaceholder: "请输入您的参展商编号",
+    exhibitionInfoSection: "展览信息",
+    exhibitionPeriodLabel: "展览期间",
+    periodPlaceholder: "请选择展览期间",
+    firstPeriod: "第一期",
+    secondPeriod: "第二期",
+    seatNumberLabel: "花席号",
+    seatPlaceholder: "请输入您的花席号",
+    artworkSizeLabel: "作品尺寸 (最大)",
+    widthLabel: "宽:",
+    depthLabel: "深:",
+    heightLabel: "高:",
+    sizePlaceholder: "请输入尺寸",
+    arrangementDateReceptionTimeLabel: "插花日期和接待时间",
+    arrangementDatePlaceholder: "选择日期",
+    receptionTimePlaceholder: "选择时间",
+    morning: "上午 (9:00-12:00)",
+    afternoon: "下午 (12:00-17:00)",
+    evening: "晚上 (17:00-20:00)",
+    flowerOrderDetailsSection: "花材订购详情",
+    tableHeaderItem: "项目",
+    tableHeaderDetail: "详细信息",
+    flowerNameLabel: "花材名称",
+    colorLabel: "颜色",
+    quantityLabel: "订购数量",
+    approxMaterialLabel: "大致花材",
+    sizeNotesLabel: "尺寸/备注",
+    flowerNamePlaceholder: "请详细填写所需花材（例：红玫瑰 5支，白色满天星 1束）",
+    colorPlaceholder: "请填写期望的颜色（例：红色系，白色和绿色）",
+    quantityPlaceholder: "请填写所需数量（例：每种10个，共20个）",
+    approxMaterialPlaceholder: "请填写大致花材种类或意象（例：以枝条为主，小花精致）",
+    sizeNotesPlaceholder: "请填写尺寸方面的特殊要求或附加备注（例：高度1米以内，宽度约50厘米）",
+    sketchUpload: "上传草图 / 参考图片",
+    submitButton: "提交订单",
+    required: "必填",
+    optional: "可选",
+    orderSubmitted: "订单已成功提交！"
+  },
+  ko: {
+    mainTitle: "제106회 소게츠 이케바나 전시회 화재 주문서",
+    mainSubtitle: "온라인 주문서",
+    selectLanguageLabel: "언어 선택:",
+    appTitle: "제106회 소게츠 이케바나 전시회",
+    appSubtitle: "화재 주문서",
+    contactTo: "수신: De Bloemenwinkel 블룸윙클",
+    contactEmail: "이메일: deblwinkel@gmail.com",
+    deadline: "아래 정보를 자세히 기입하시고, 스케치와 함께 9월 18일(목)까지 위 이메일 주소로 제출해 주십시오.",
+    paymentInfo: "청구 금액은 꽃집 \"블룸윙클\"에서 알려드립니다. 신용카드로 결제하실 수 있습니다.",
+    personalInfoSection: "고객 정보",
+    nameLabel: "이름",
+    namePlaceholder: "이름을 기입해주세요",
+    phoneLabel: "전화번호",
+    phonePlaceholder: "전화번호를 기입해주세요",
+    emailLabel: "이메일 주소",
+    emailPlaceholder: "이메일 주소를 기입해주세요",
+    exhibitorNumberLabel: "출품자 번호 / ID",
+    exhibitorPlaceholder: "출품자 번호를 기입해주세요",
+    exhibitionInfoSection: "전시 정보",
+    exhibitionPeriodLabel: "전시 기간",
+    periodPlaceholder: "전시 기간을 선택해주세요",
+    firstPeriod: "1기",
+    secondPeriod: "2기",
+    seatNumberLabel: "화석 번호",
+    seatPlaceholder: "화석 번호를 기입해주세요",
+    artworkSizeLabel: "작품 크기 (최대)",
+    widthLabel: "가로:",
+    depthLabel: "세로:",
+    heightLabel: "높이:",
+    sizePlaceholder: "크기를 기입해주세요",
+    arrangementDateReceptionTimeLabel: "꽃꽂이 날짜 및 접수 시간",
+    arrangementDatePlaceholder: "날짜 선택",
+    receptionTimePlaceholder: "시간 선택",
+    morning: "오전 (9:00-12:00)",
+    afternoon: "오후 (12:00-17:00)",
+    evening: "저녁 (17:00-20:00)",
+    flowerOrderDetailsSection: "화재 주문 상세",
+    tableHeaderItem: "항목",
+    tableHeaderDetail: "상세 기입란",
+    flowerNameLabel: "화재명",
+    colorLabel: "색상",
+    quantityLabel: "발주 수량",
+    approxMaterialLabel: "대략적인 화재",
+    sizeNotesLabel: "사이즈 비고",
+    flowerNamePlaceholder: "필요한 화재를 자세히 기입해주세요 (예: 장미 빨강 5송이, 안개꽃 흰색 1단)",
+    colorPlaceholder: "원하는 색상을 기입해주세요 (예: 붉은 계열, 흰색과 녹색)",
+    quantityPlaceholder: "필요한 수량을 기입해주세요 (例: 각 10개, 총 20개)",
+    approxMaterialPlaceholder: "대략적인 화재 종류나 이미지를 기입해주세요 (예: 가지 위주, 작은 꽃으로 섬세하게)",
+    sizeNotesPlaceholder: "사이즈에 대한 특별 요청이나 추가 비고 사항을 기입해주세요 (例: 높이 1m 이내, 폭 約 50cm)",
+    sketchUpload: "스케치 / 참고 이미지 업로드",
+    submitButton: "주문 제출",
+    required: "필수",
+    optional: "選択",
+    orderSubmitted: "주문이 성공적으로 제출되었습니다!"
+  }
+};
+
+
+function App() {
+  const [language, setLanguage] = useState<'en' | 'ja' | 'zh-CN' | 'ko'>('ja'); // デフォルトを日本語に設定
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    exhibitorNumber: '',
+    period: '',
+    seatNumber: '',
+    artworkSizeW: '', // 新しいフィールド
+    artworkSizeD: '', // 新しいフィールド
+    artworkSizeH: '', // 新しいフィールド
+    arrangementDate: '', // 新しいフィールド
+    arrangementTime: '', // 新しいフィールド
+    // 既存のApp.tsxのフィールド
+    flowerType: '', // これは花材注文詳細テーブルに置き換えられるため、後で削除または調整
+    quantity: '', // 同上
+    colors: '', // 同上
+    budget: '', // 同上
+    deliveryDate: '', // 同上
+    deliveryTime: '', // 同上
+    specialRequests: '', // 同上
+    // 花材注文詳細テーブルのデータ構造
+    flowerMaterialSets: [
+      { flowerName: '', color: '', quantity: '', approxMaterial: '', sizeNotes: '' },
+      { flowerName: '', color: '', quantity: '', approxMaterial: '', sizeNotes: '' },
+      { flowerName: '', color: '', quantity: '', approxMaterial: '', sizeNotes: '' },
+      { flowerName: '', color: '', quantity: '', approxMaterial: '', sizeNotes: '' },
+      { flowerName: '', color: '', quantity: '', approxMaterial: '', sizeNotes: '' },
+    ]
+  });
+  const [images, setImages] = useState<File[]>([]);
+
+  const t = translations[language];
+
+  const handleInputChange = (field: string, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const handleFlowerMaterialChange = (setIndex: number, field: string, value: string) => {
+    setFormData(prev => {
+      const newFlowerMaterialSets = [...prev.flowerMaterialSets];
+      newFlowerMaterialSets[setIndex] = {
+        ...newFlowerMaterialSets[setIndex],
+        [field]: value
+      };
+      return { ...prev, flowerMaterialSets: newFlowerMaterialSets };
+    });
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // ここで通常はフォームデータと画像をバックエンドに送信します
+    console.log('Form data:', formData);
+    console.log('Images:', images);
+    // alertの代わりにconsole.logを使用
+    console.log(t.orderSubmitted);
+    // 実際のアプリケーションでは、ここでユーザーに成功メッセージを表示するモーダルなどを実装します
+  };
+
+  // setGroupColors を Tailwind CSS クラスに直接マッピング
+  const setGroupBackgrounds = [
+    'bg-white',    // 1セット目 (奇数)
+    'bg-gray-50',  // 2セット目 (偶数)
+    'bg-white',    // 3セット目 (奇数)
+    'bg-gray-50',  // 4セット目 (偶数)
+    'bg-white'     // 5セット目 (奇数)
+  ];
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 font-inter">
+      {/* Header */}
+      <div className="bg-white shadow-sm border-b border-green-100">
+        <div className="max-w-4xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center text-center sm:text-left">
+          <div className="flex flex-col items-center sm:items-start gap-1 mb-4 sm:mb-0">
+            <h1 className="text-xl font-bold text-gray-800 leading-tight">{t.mainTitle}</h1>
+            <p className="text-lg text-green-600 font-medium">{t.mainSubtitle}</p>
+          </div>
+          <LanguageToggle language={language} onToggle={setLanguage} selectLanguageLabel={t.selectLanguageLabel} />
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="max-w-4xl mx-auto px-4 py-8">
+        {/* Contact Information */}
+        <div className="bg-white rounded-xl shadow-sm p-6 mb-8 border border-green-100">
+          <div className="flex items-start gap-4">
+            <Mail className="w-6 h-6 text-green-600 mt-1 flex-shrink-0" />
+            <div className="space-y-2">
+              <h2 className="text-lg font-semibold text-gray-800">{t.contactTo}</h2>
+              <p className="text-green-600 font-medium">{t.contactEmail}</p>
+              <div className="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+                <p className="text-sm text-blue-800 mb-2">{t.deadline}</p>
+                <p className="text-sm text-blue-700">{t.paymentInfo}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Order Form */}
+        <form onSubmit={handleSubmit} className="space-y-8">
+          {/* Personal Information */}
+          <div className="bg-white rounded-xl shadow-sm p-6 border border-green-100">
+            <div className="flex items-center gap-3 mb-6">
+              <User className="w-6 h-6 text-green-600" />
+              <h3 className="text-lg font-semibold text-gray-800">{t.personalInfoSection}</h3>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <FormField label={t.nameLabel} required>
+                <input
+                  type="text"
+                  value={formData.name}
+                  onChange={(e) => handleInputChange('name', e.target.value)}
+                  placeholder={t.namePlaceholder}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all"
+                  required
+                />
+              </FormField>
+
+              <FormField label={t.phoneLabel} required>
+                <input
+                  type="tel"
+                  value={formData.phone}
+                  onChange={(e) => handleInputChange('phone', e.target.value)}
+                  placeholder={t.phonePlaceholder}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all"
+                  required
+                />
+              </FormField>
+
+              <FormField label={t.emailLabel} required>
+                <input
+                  type="email"
+                  value={formData.email}
+                  onChange={(e) => handleInputChange('email', e.target.value)}
+                  placeholder={t.emailPlaceholder}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all"
+                  required
+                />
+              </FormField>
+
+              <FormField label={t.exhibitorNumberLabel} required>
+                <input
+                  type="text"
+                  value={formData.exhibitorNumber}
+                  onChange={(e) => handleInputChange('exhibitorNumber', e.target.value)}
+                  placeholder={t.exhibitorPlaceholder}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all"
+                  required
+                />
+              </FormField>
+            </div>
+          </div>
+
+          {/* Exhibition Information */}
+          <div className="bg-white rounded-xl shadow-sm p-6 border border-green-100">
+            <div className="flex items-center gap-3 mb-6">
+              <MapPin className="w-6 h-6 text-green-600" />
+              <h3 className="text-lg font-semibold text-gray-800">{t.exhibitionInfoSection}</h3>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <FormField label={t.exhibitionPeriodLabel} required>
+                <select
+                  value={formData.period}
+                  onChange={(e) => handleInputChange('period', e.target.value)}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all appearance-none bg-white"
+                  required
+                >
+                  <option value="">{t.periodPlaceholder}</option>
+                  <option value="first">{t.firstPeriod}</option>
+                  <option value="second">{t.secondPeriod}</option>
+                </select>
+              </FormField>
+
+              <FormField label={t.seatNumberLabel} required>
+                <input
+                  type="text"
+                  value={formData.seatNumber}
+                  onChange={(e) => handleInputChange('seatNumber', e.target.value)}
+                  placeholder={t.seatPlaceholder}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all"
+                  required
+                />
+              </FormField>
+            </div>
+
+            {/* Artwork Size */}
+            <div className="mt-6">
+              <FormField label={t.artworkSizeLabel}>
+                <div className="grid grid-cols-3 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-600 mb-1">{t.widthLabel}</label>
+                    <input
+                      type="text"
+                      value={formData.artworkSizeW}
+                      onChange={(e) => handleInputChange('artworkSizeW', e.target.value)}
+                      placeholder={t.sizePlaceholder}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all text-sm"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-600 mb-1">{t.depthLabel}</label>
+                    <input
+                      type="text"
+                      value={formData.artworkSizeD}
+                      onChange={(e) => handleInputChange('artworkSizeD', e.target.value)}
+                      placeholder={t.sizePlaceholder}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all text-sm"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-600 mb-1">{t.heightLabel}</label>
+                    <input
+                      type="text"
+                      value={formData.artworkSizeH}
+                      onChange={(e) => handleInputChange('artworkSizeH', e.target.value)}
+                      placeholder={t.sizePlaceholder}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all text-sm"
+                    />
+                  </div>
+                </div>
+              </FormField>
+            </div>
+
+            {/* Arrangement Date and Reception Time */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+              <FormField label={t.arrangementDateReceptionTimeLabel} required>
+                <div className="relative">
+                  <Calendar className="absolute left-3 top-3 w-5 h-5 text-green-500" />
+                  <input
+                    type="date"
+                    value={formData.arrangementDate}
+                    onChange={(e) => handleInputChange('arrangementDate', e.target.value)}
+                    className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all"
+                    required
+                  />
+                </div>
+              </FormField>
+              <FormField label=""> {/* ラベルは上の行でまとめて表示されるため空 */}
+                <div className="relative mt-7"> {/* 上のフィールドと高さを合わせるための調整 */}
+                  <Clock className="absolute left-3 top-3 w-5 h-5 text-green-500" />
+                  <select
+                    value={formData.arrangementTime}
+                    onChange={(e) => handleInputChange('arrangementTime', e.target.value)}
+                    className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all appearance-none bg-white"
+                  >
+                    <option value="">{t.receptionTimePlaceholder}</option>
+                    <option value="morning">{t.morning}</option>
+                    <option value="afternoon">{t.afternoon}</option>
+                    <option value="evening">{t.evening}</option>
+                  </select>
+                </div>
+              </FormField>
+            </div>
+          </div>
+
+          {/* Flower Material Order Details Table */}
+          <div className="bg-white rounded-xl shadow-sm p-6 border border-green-100">
+            <div className="flex items-center gap-3 mb-6">
+              <Flower2 className="w-6 h-6 text-green-600" />
+              <h3 className="text-lg font-semibold text-gray-800">{t.flowerOrderDetailsSection}</h3>
+            </div>
+
+            <div className="overflow-x-auto">
+                <table className="min-w-full bg-white border-collapse">
+                    <thead className="bg-green-50">
+                        <tr>
+                            <th className="text-sm font-semibold text-gray-700 uppercase tracking-wider rounded-tl-lg w-1/3">
+                                {t.tableHeaderItem}
+                            </th>
+                            <th className="text-sm font-semibold text-gray-700 uppercase tracking-wider rounded-tr-lg w-2/3">
+                                {t.tableHeaderDetail}
+                            </th>
+                        </tr>
+                    </thead>
+                    {/* 各セットを独立した tbody で囲む */}
+                    {/* React.Fragment で tbodies を囲むことで、間に不要なテキストノードが生成されるのを防ぎます */}
+                    <React.Fragment>{formData.flowerMaterialSets.map((set, setIndex) => (
+                        <tbody key={setIndex} className={setGroupBackgrounds[setIndex]}> {/* 背景色を tbody に適用 */}
+                            <tr>
+                                <td className="font-medium text-gray-700 align-top">{t.flowerNameLabel}</td>
+                                <td>
+                                    <input
+                                        type="text"
+                                        value={set.flowerName}
+                                        onChange={(e) => handleFlowerMaterialChange(setIndex, 'flowerName', e.target.value)}
+                                        placeholder={t.flowerNamePlaceholder}
+                                        className="text-sm"
+                                    />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td className="font-medium text-gray-700 align-top">{t.colorLabel}</td>
+                                <td>
+                                    <input
+                                        type="text"
+                                        value={set.color}
+                                        onChange={(e) => handleFlowerMaterialChange(setIndex, 'color', e.target.value)}
+                                        placeholder={t.colorPlaceholder}
+                                        className="text-sm"
+                                    />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td className="font-medium text-gray-700 align-top">{t.quantityLabel}</td>
+                                <td>
+                                    <input
+                                        type="text"
+                                        value={set.quantity}
+                                        onChange={(e) => handleFlowerMaterialChange(setIndex, 'quantity', e.target.value)}
+                                        placeholder={t.quantityPlaceholder}
+                                        className="text-sm"
+                                    />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td className="font-medium text-gray-700 align-top">{t.approxMaterialLabel}</td>
+                                <td>
+                                    <input
+                                        type="text"
+                                        value={set.approxMaterial}
+                                        onChange={(e) => handleFlowerMaterialChange(setIndex, 'approxMaterial', e.target.value)}
+                                        placeholder={t.approxMaterialPlaceholder}
+                                        className="text-sm"
+                                    />
+                                </td>
+                            </tr>
+                            {/* 最後の行にのみボーダーを適用し、最後のセットの tbody には適用しない */}
+                            <tr style={{borderBottom: setIndex < formData.flowerMaterialSets.length - 1 ? '2px solid #a7f3d0' : 'none'}}>
+                                <td className="font-medium text-gray-700 align-top">
+                                    {t.sizeNotesLabel}
+                                </td>
+                                <td>
+                                    <input
+                                        type="text"
+                                        value={set.sizeNotes}
+                                        onChange={(e) => handleFlowerMaterialChange(setIndex, 'sizeNotes', e.target.value)}
+                                        placeholder={t.sizeNotesPlaceholder}
+                                        className="text-sm"
+                                    />
+                                </td>
+                            </tr>
+                        </tbody>
+                    ))}</React.Fragment>
+                </table>
+            </div>
+          </div>
+
+          {/* Image Upload */}
+          <div className="bg-white rounded-xl shadow-sm p-6 border border-green-100">
+            <ImageUpload
+              onImageChange={setImages}
+              label={t.sketchUpload}
+              maxFiles={3}
+            />
+          </div>
+
+          {/* Submit Button */}
+          <div className="flex justify-center pt-4">
+            <button
+              type="submit"
+              className="bg-gradient-to-r from-green-600 to-emerald-600 text-white font-semibold px-8 py-4 rounded-lg hover:from-green-700 hover:to-emerald-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center gap-3"
+            >
+              <Mail className="w-5 h-5" />
+              {t.submitButton}
+            </button>
+          </div>
+        </form>
+      </div>
+
+      {/* Footer */}
+      <div className="bg-white border-t border-green-100 mt-12">
+        <div className="max-w-4xl mx-auto px-4 py-6 text-center">
+          <p className="text-sm text-gray-600">
+            © 2025 {t.appTitle} | Powered by Bloomwinkel
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default App;
 </body>
 </html>
 
