@@ -170,7 +170,7 @@ function LanguageToggle({ language, onToggle, selectLanguageLabel }: LanguageTog
 // 多言語対応のための翻訳データ
 const translations = {
   ja: {
-    mainTitle: "The 106th Sogetsu Annual Exhibition Flower Material Order 第106回草月いけばな展 花材注文書", // 改行を削除
+    mainTitle: "The 106th Sogetsu Annual Exhibition Flower Material Order<br/>第106回草月いけばな展 花材注文書", // 改行タグを挿入
     mainSubtitle: "Online Order Sheet",
     selectLanguageLabel: "Select Language:言語選択:",
     appTitle: "第106回草月いけばな展",
@@ -234,7 +234,7 @@ const translations = {
     contactTo: "To: De Bloemenwinkel Bloemenwinkel",
     contactEmail: "E-mail: deblwinkel@gmail.com",
     deadline: "Please fill in the following information in detail and submit it with your sketch to the above email address by Thursday, September 18th.",
-    paymentInfo: "The billing amount will be communicated to you by the florist \"Bloomwinkel\". You can pay by credit card.",
+    paymentInfo: "The billing amount will be communicated to you by the florist \"Bloemenwinkel\". You can pay by credit card.",
     personalInfoSection: "Customer Information",
     nameLabel: "Full Name",
     namePlaceholder: "Enter your full name",
@@ -384,7 +384,7 @@ const translations = {
     sizeNotesLabel: "사이즈 비고",
     flowerNamePlaceholder: "필요한 화재를 자세히 기입해주세요 (예: 장미 빨강 5송이, 안개꽃 흰색 1단)",
     colorPlaceholder: "원하는 색상을 기입해주세요 (예: 붉은 계열, 흰색과 녹색)",
-    quantityPlaceholder: "필요한 수량을 기입해주세요 (例: 각 10개, 총 20개)",
+    quantityPlaceholder: "필요한 수량을 기입해주세요 (例: 각 10개, 총 20個)",
     approxMaterialPlaceholder: "대략적인 화재 종류나 이미지를 기입해주세요 (예: 가지 위주, 작은 꽃으로 섬세하게)",
     sizeNotesPlaceholder: "사이즈에 대한 특별 요청이나 추가 비고 사항을 기입해주세요 (例: 높이 1m 이내, 폭 約 50cm)",
     sketchUpload: "스케치 / 참고 이미지 업로드",
@@ -471,7 +471,7 @@ function App() {
       <div className="bg-white shadow-sm border-b border-green-100">
         <div className="max-w-4xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center text-center sm:text-left">
           <div className="flex flex-col items-center sm:items-start gap-1 mb-4 sm:mb-0">
-            <h1 className="text-xl font-bold text-gray-800 leading-tight">{t.mainTitle}</h1>
+            <h1 className="text-xl font-bold text-gray-800 leading-tight" dangerouslySetInnerHTML={{ __html: t.mainTitle }}></h1>
             <p className="text-lg text-green-600 font-medium">{t.mainSubtitle}</p>
           </div>
           <LanguageToggle language={language} onToggle={setLanguage} selectLanguageLabel={t.selectLanguageLabel} />
@@ -771,7 +771,7 @@ function App() {
       <div className="bg-white border-t border-green-100 mt-12">
         <div className="max-w-4xl mx-auto px-4 py-6 text-center">
           <p className="text-sm text-gray-600">
-            © 2025 {t.appTitle} | Powered by Bloomwinkel
+            © 2025 {t.appTitle} | Powered by Bloemenwinkel
           </p>
         </div>
       </div>
