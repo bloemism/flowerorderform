@@ -225,7 +225,7 @@
                     <!-- Arrangement Date and Reception Time -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
                         <div class="space-y-2">
-                            <label id="arrangementDateReceptionTimeLabel" class="block text-sm font-semibold text-gray-700"></label>
+                            <label id="scheduleLabel" class="block text-sm font-semibold text-gray-700"></label>
                             <div class="relative">
                                 <svg class="icon absolute left-3 top-3 w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
                                 <input type="date" id="arrangementDate" class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all" required>
@@ -433,8 +433,8 @@
                         
                         <div id="imageUploadArea" class="border-2 border-dashed border-green-300 rounded-lg p-6 text-center cursor-pointer hover:border-green-400 hover:bg-green-50 transition-all">
                             <svg class="icon w-8 h-8 text-green-500 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.2a2 2 0 01-2.83-2.83l8.49-8.49"></path></svg>
-                            <p class="text-sm text-gray-600 mb-1">Click to upload sketches/images</p>
-                            <p class="text-xs text-gray-500">PNG, JPG up to 10MB (max 3 files)</p>
+                            <p id="uploadPrompt" class="text-sm text-gray-600 mb-1"></p>
+                            <p id="fileFormatInfo" class="text-xs text-gray-500"></p>
                         </div>
 
                         <input type="file" id="fileInput" multiple accept="image/*" class="hidden">
@@ -497,7 +497,7 @@
                 depthLabel: "D:",
                 heightLabel: "H:",
                 sizePlaceholder: "サイズをご記入ください",
-                arrangementDateReceptionTimeLabel: "いけこみ日と受付時間",
+                scheduleLabel: "スケジュール", // 新しい翻訳キー
                 arrangementDatePlaceholder: "日付を選択",
                 receptionTimePlaceholder: "時間を選択",
                 morning: "午前（9:00-12:00）",
@@ -517,6 +517,8 @@
                 approxMaterialPlaceholder: "おおよその花材の種類やイメージをご記入ください（例：枝物中心、小花で繊細に）",
                 sizeNotesPlaceholder: "サイズに関する特別な要望や追加の備考があればご記入ください（例：高さ1m以内、幅50cm程度）",
                 sketchUpload: "スケッチ / 参考画像のアップロード",
+                uploadPrompt: "クリックしてスケッチ/画像をアップロード",
+                fileFormatInfo: "PNG, JPG 最大10MB (最大 {maxFiles} ファイル)",
                 submitButton: "注文を送信",
                 required: "必須",
                 optional: "任意",
@@ -554,7 +556,7 @@
                 depthLabel: "D:",
                 heightLabel: "H:",
                 sizePlaceholder: "Enter size",
-                arrangementDateReceptionTimeLabel: "Arrangement Date and Reception Time",
+                scheduleLabel: "Schedule", // 新しい翻訳キー
                 arrangementDatePlaceholder: "Select date",
                 receptionTimePlaceholder: "Select time",
                 morning: "Morning (9:00-12:00)",
@@ -574,6 +576,8 @@
                 approxMaterialPlaceholder: "Please describe the approximate type or image of materials (e.g., branch-focused, delicate with small flowers)",
                 sizeNotesPlaceholder: "Please add any special requests or notes regarding size (e.g., within 1m height, approx 50cm width)",
                 sketchUpload: "Upload Sketch / Reference Images",
+                uploadPrompt: "Click to upload sketches/images",
+                fileFormatInfo: "PNG, JPG up to 10MB (max {maxFiles} files)",
                 submitButton: "Submit Order",
                 required: "Required",
                 optional: "Optional",
@@ -611,7 +615,7 @@
                 depthLabel: "深:",
                 heightLabel: "高:",
                 sizePlaceholder: "请输入尺寸",
-                arrangementDateReceptionTimeLabel: "插花日期和接待时间",
+                scheduleLabel: "日程", // 新しい翻訳キー
                 arrangementDatePlaceholder: "选择日期",
                 receptionTimePlaceholder: "选择时间",
                 morning: "上午 (9:00-12:00)",
@@ -631,6 +635,8 @@
                 approxMaterialPlaceholder: "请填写大致花材种类或意象（例：以枝条为主，小花精致）",
                 sizeNotesPlaceholder: "请填写尺寸方面的特殊要求或附加备注（例：高度1米以内，宽度约50厘米）",
                 sketchUpload: "上传草图 / 参考图片",
+                uploadPrompt: "点击上传草图/图片",
+                fileFormatInfo: "PNG, JPG 最大10MB (最大 {maxFiles} 文件)",
                 submitButton: "提交订单",
                 required: "必填",
                 optional: "可选",
@@ -668,7 +674,7 @@
                 depthLabel: "세로:",
                 heightLabel: "높이:",
                 sizePlaceholder: "크기를 기입해주세요",
-                arrangementDateReceptionTimeLabel: "꽃꽂이 날짜 및 접수 시간",
+                scheduleLabel: "일정", // 新しい翻訳キー
                 arrangementDatePlaceholder: "날짜 선택",
                 receptionTimePlaceholder: "시간 선택",
                 morning: "오전 (9:00-12:00)",
@@ -688,11 +694,13 @@
                 approxMaterialPlaceholder: "대략적인 화재 종류나 이미지를 기입해주세요 (예: 가지 위주, 작은 꽃으로 섬세하게)",
                 sizeNotesPlaceholder: "사이즈에 대한 특별 요청이나 추가 비고 사항을 기입해주세요 (例: 높이 1m 이내, 폭 約 50cm)",
                 sketchUpload: "스케치 / 참고 이미지 업로드",
+                uploadPrompt: "스케치/이미지 업로드하려면 클릭",
+                fileFormatInfo: "PNG, JPG 최대 10MB (최대 {maxFiles} 파일)",
                 submitButton: "주문 제출",
                 required: "필수",
                 optional: "선택",
                 orderSubmitted: "주문이 성공적으로 제출되었습니다！",
-                footerText: "© 2025 제106회 소게츠 이케바나 전시회 | Powered by Bloemenwinkel"
+                footerText: "© 2025 제106회 소게츠 이케바나 전시회 | Powered by 블룸윙클"
             }
         };
 
@@ -740,7 +748,7 @@
             document.getElementById('artworkSizeD').placeholder = t.sizePlaceholder;
             document.getElementById('heightLabel').textContent = t.heightLabel;
             document.getElementById('artworkSizeH').placeholder = t.sizePlaceholder;
-            document.getElementById('arrangementDateReceptionTimeLabel').innerHTML = `${t.arrangementDateReceptionTimeLabel}<span class="text-red-500 ml-1">*</span>`;
+            document.getElementById('scheduleLabel').innerHTML = `${t.scheduleLabel}<span class="text-red-500 ml-1">*</span>`; // 新しいラベルID
             document.getElementById('arrangementDate').placeholder = t.arrangementDatePlaceholder; // type="date" の placeholder は表示されないが、念のため
             document.getElementById('receptionTimePlaceholder').textContent = t.receptionTimePlaceholder;
             document.getElementById('morning').textContent = t.morning;
@@ -768,6 +776,9 @@
 
             // スケッチ/参考画像のアップロード
             document.getElementById('sketchUploadLabel').textContent = t.sketchUpload;
+            document.getElementById('uploadPrompt').textContent = t.uploadPrompt;
+            document.getElementById('fileFormatInfo').textContent = t.fileFormatInfo.replace('{maxFiles}', maxFiles);
+
 
             // 送信ボタン
             document.getElementById('submitButton').querySelector('span').textContent = t.submitButton;
