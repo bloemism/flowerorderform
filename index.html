@@ -24,6 +24,7 @@
         input[type="tel"],
         input[type="email"],
         input[type="date"],
+        input[type="time"], /* Add type="time" */
         select {
             width: 100%;
             padding: 6px 10px; /* パディングを狭く調整 */
@@ -37,6 +38,7 @@
         input[type="tel"]:focus,
         input[type="email"]:focus,
         input[type="date"]:focus,
+        input[type="time"]:focus, /* Add type="time" */
         select:focus {
             outline: none;
             border-color: #34d399; /* 緑色にハイライト */
@@ -231,8 +233,11 @@
                                 <input type="date" id="arrangementDate" class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all" required>
                             </div>
                         </div>
-                       
-                                </select>
+                        <div class="space-y-2">
+                            <label class="block text-sm font-semibold text-gray-700"></label> <!-- Removed mt-7 as it's not needed with the new structure -->
+                            <div class="relative">
+                                <svg class="icon absolute left-3 top-3 w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                <input type="time" id="arrangementTime" class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all">
                             </div>
                         </div>
                     </div>
@@ -491,10 +496,10 @@
                 sizePlaceholder: "サイズをご記入ください",
                 scheduleLabel: "スケジュール", // 新しい翻訳キー
                 arrangementDatePlaceholder: "日付を選択",
-                receptionTimePlaceholder: "時間を選択",
-                morning: "午前（9:00-12:00）",
-                afternoon: "午後（12:00-17:00）",
-                evening: "夕方（17:00-20:00）",
+                // receptionTimePlaceholder: "時間を選択", // Removed as it's not directly used for type="time"
+                // morning: "午前（9:00-12:00）", // Removed
+                // afternoon: "午後（12:00-17:00）", // Removed
+                // evening: "夕方（17:00-20:00）", // Removed
                 flowerOrderDetailsSection: "花材注文詳細",
                 tableHeaderItem: "項目",
                 tableHeaderDetail: "詳細記入欄",
@@ -548,12 +553,12 @@
                 depthLabel: "D:",
                 heightLabel: "H:",
                 sizePlaceholder: "Enter size",
-                scheduleLabel: "Schedule", // 新しい翻訳キー
+                scheduleLabel: "Schedule", // New translation key
                 arrangementDatePlaceholder: "Select date",
-                receptionTimePlaceholder: "Select time",
-                morning: "Morning (9:00-12:00)",
-                afternoon: "Afternoon (12:00-17:00)",
-                evening: "Evening (17:00-20:00)",
+                // receptionTimePlaceholder: "Select time", // Removed
+                // morning: "Morning (9:00-12:00)", // Removed
+                // afternoon: "Afternoon (12:00-17:00)", // Removed
+                // evening: "Evening (17:00-20:00)", // Removed
                 flowerOrderDetailsSection: "Flower Material Order Details",
                 tableHeaderItem: "Item",
                 tableHeaderDetail: "Details",
@@ -607,12 +612,12 @@
                 depthLabel: "深:",
                 heightLabel: "高:",
                 sizePlaceholder: "请输入尺寸",
-                scheduleLabel: "日程", // 新しい翻訳キー
+                scheduleLabel: "日程", // New translation key
                 arrangementDatePlaceholder: "选择日期",
-                receptionTimePlaceholder: "选择时间",
-                morning: "上午 (9:00-12:00)",
-                afternoon: "下午 (12:00-17:00)",
-                evening: "晚上 (17:00-20:00)",
+                // receptionTimePlaceholder: "选择时间", // Removed
+                // morning: "上午 (9:00-12:00)", // Removed
+                // afternoon: "下午 (12:00-17:00)", // Removed
+                // evening: "晚上 (17:00-20:00)", // Removed
                 flowerOrderDetailsSection: "花材订购详情",
                 tableHeaderItem: "项目",
                 tableHeaderDetail: "详细信息",
@@ -666,12 +671,12 @@
                 depthLabel: "세로:",
                 heightLabel: "높이:",
                 sizePlaceholder: "크기를 기입해주세요",
-                scheduleLabel: "일정", // 新しい翻訳キー
+                scheduleLabel: "일정", // New translation key
                 arrangementDatePlaceholder: "날짜 선택",
-                receptionTimePlaceholder: "시간 선택",
-                morning: "오전 (9:00-12:00)",
-                afternoon: "오후 (12:00-17:00)",
-                evening: "저녁 (17:00-20:00)",
+                // receptionTimePlaceholder: "시간 선택", // Removed
+                // morning: "오전 (9:00-12:00)", // Removed
+                // afternoon: "오후 (12:00-17:00)", // Removed
+                // evening: "저녁 (17:00-20:00)", // Removed
                 flowerOrderDetailsSection: "화재 주문 상세",
                 tableHeaderItem: "항목",
                 tableHeaderDetail: "상세 기입란",
@@ -742,10 +747,10 @@
             document.getElementById('artworkSizeH').placeholder = t.sizePlaceholder;
             document.getElementById('scheduleLabel').innerHTML = `${t.scheduleLabel}<span class="text-red-500 ml-1">*</span>`; // 新しいラベルID
             document.getElementById('arrangementDate').placeholder = t.arrangementDatePlaceholder; // type="date" の placeholder は表示されないが、念のため
-            document.getElementById('receptionTimePlaceholder').textContent = t.receptionTimePlaceholder;
-            document.getElementById('morning').textContent = t.morning;
-            document.getElementById('afternoon').textContent = t.afternoon;
-            document.getElementById('evening').textContent = t.evening;
+            // document.getElementById('receptionTimePlaceholder').textContent = t.receptionTimePlaceholder; // Removed
+            // document.getElementById('morning').textContent = t.morning; // Removed
+            // document.getElementById('afternoon').textContent = t.afternoon; // Removed
+            // document.getElementById('evening').textContent = t.evening; // Removed
 
             // 花材注文詳細テーブル
             document.getElementById('flowerOrderDetailsSection').textContent = t.flowerOrderDetailsSection;
@@ -885,7 +890,7 @@
             document.getElementById('artworkSizeD').addEventListener('input', (e) => handleInputChange('artworkSizeD', e.target.value));
             document.getElementById('artworkSizeH').addEventListener('input', (e) => handleInputChange('artworkSizeH', e.target.value));
             document.getElementById('arrangementDate').addEventListener('input', (e) => handleInputChange('arrangementDate', e.target.value));
-            document.getElementById('arrangementTime').addEventListener('change', (e) => handleInputChange('arrangementTime', e.target.value));
+            document.getElementById('arrangementTime').addEventListener('input', (e) => handleInputChange('arrangementTime', e.target.value)); // Changed from 'change' to 'input' for time
 
             // 花材テーブルの入力フィールドのイベントリスナーを設定
             for (let i = 0; i < 5; i++) {
