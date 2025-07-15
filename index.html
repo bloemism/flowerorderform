@@ -861,16 +861,6 @@
             });
         }
 
-        // フォーム送信の処理
-        function handleSubmit(event) {
-            event.preventDefault();
-            console.log('Form data:', formData);
-            console.log('Images:', images);
-            console.log(translations[currentLanguage].orderSubmitted);
-            // 実際のアプリケーションでは、ここでフォームデータと画像をサーバーに送信します
-            // 例: fetch('/submit-order', { method: 'POST', body: JSON.stringify(formData) })
-        }
-
         // DOMContentLoadedイベントで初期化
         document.addEventListener('DOMContentLoaded', function() {
             // 言語切り替えボタンのイベントリスナーを設定
