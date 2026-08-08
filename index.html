@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>第106回草月いけばな展 花材注文書</title>
+    <title>第108回草月いけばな展 花材注文書</title>
     <!-- Tailwind CSS CDNを読み込み -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -108,6 +108,40 @@
             fill: none;
             stroke-linecap: round;
             stroke-linejoin: round;
+        }
+
+        /* 装飾アイコンが入力を邪魔しないようにする */
+        .datetime-field .icon {
+            pointer-events: none;
+        }
+
+        /*
+         * date/time: 右側のピッカーボタンはそのまま使い、
+         * フィールド本体はタップして手入力できるようにする
+         * （デフォルトだとピッカー領域が入力欄全体を覆うブラウザがある）
+         */
+        input[type="date"],
+        input[type="time"] {
+            position: relative;
+            padding-right: 2.75rem;
+            color-scheme: light;
+        }
+        input[type="date"]::-webkit-calendar-picker-indicator,
+        input[type="time"]::-webkit-calendar-picker-indicator {
+            position: absolute;
+            right: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1.25rem;
+            height: 1.25rem;
+            cursor: pointer;
+            opacity: 1;
+            padding: 0;
+            margin: 0;
+        }
+        input[type="date"]::-webkit-datetime-edit,
+        input[type="time"]::-webkit-datetime-edit {
+            padding: 0;
         }
     </style>
 </head>
@@ -230,16 +264,26 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
                         <div class="space-y-2">
                             <label id="scheduleLabel" class="block text-sm font-semibold required text-gray-700"></label>
-                            <div class="relative">
+                            <div class="relative datetime-field">
                                 <svg class="icon absolute left-3 top-3 w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                                <input type="date" id="arrangementDate" class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all" required>
+                                <input type="date" id="arrangementDate" class="w-full pl-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all" required>
                             </div>
                         </div>
                         <div class="space-y-2">
-                            <label class="block text-sm font-semibold required text-gray-700"></label> <!-- Removed mt-7 as it's not needed with the new structure -->
-                            <div class="relative">
-                                <svg class="icon absolute left-3 top-3 w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                                <input type="time" id="arrangementTime" class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all">
+                            <label id="timeLabel" class="block text-sm font-semibold text-gray-700"></label>
+                            <div class="flex items-center gap-2">
+                                <div class="relative flex-1">
+                                    <select id="arrangementHour" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all appearance-none bg-white" aria-label="Hour">
+                                        <option value="" id="hourPlaceholder"></option>
+                                    </select>
+                                </div>
+                                <span class="text-lg font-semibold text-gray-500" aria-hidden="true">:</span>
+                                <div class="relative flex-1">
+                                    <select id="arrangementMinute" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all appearance-none bg-white" aria-label="Minute">
+                                        <option value="" id="minutePlaceholder"></option>
+                                    </select>
+                                </div>
+                                <input type="hidden" id="arrangementTime" name="arrangementTime" value="">
                             </div>
                         </div>
                     </div>
@@ -466,10 +510,10 @@
         // 多言語対応のための翻訳データ
         const translations = {
             ja: {
-                mainTitle: "The 106th Sogetsu Annual Exhibition Flower Material Order<br/>第106回草月いけばな展 花材注文書",
+                mainTitle: "The 108th Sogetsu Annual Exhibition Flower Material Order<br/>第108回草月いけばな展 花材注文書",
                 mainSubtitle: "Online Order Sheet",
                 selectLanguageLabel: "Select Language:言語選択:",
-                appTitle: "第106回草月いけばな展",
+                appTitle: "第108回草月いけばな展",
                 appSubtitle: "花材注文書",
                 contactTo: "宛先：De Bloemenwinkel ブルームウィンクル",
                 contactEmail: "E-mail: deblwinkel@gmail.com",
@@ -498,22 +542,21 @@
                 sizePlaceholder: "サイズをご記入ください",
                 scheduleLabel: "スケジュール", // 新しい翻訳キー
                 arrangementDatePlaceholder: "日付を選択",
-                // receptionTimePlaceholder: "時間を選択", // Removed as it's not directly used for type="time"
-                // morning: "午前（9:00-12:00）", // Removed
-                // afternoon: "午後（12:00-17:00）", // Removed
-                // evening: "夕方（17:00-20:00）", // Removed
+                timeLabel: "時間",
+                hourPlaceholder: "時",
+                minutePlaceholder: "分",
                 flowerOrderDetailsSection: "花材注文詳細",
                 tableHeaderItem: "項目",
                 tableHeaderDetail: "詳細記入欄",
                 flowerNameLabel: "花材名",
                 colorLabel: "色",
                 quantityLabel: "発注数",
-                approxMaterialLabel: "おおよその花材",
+                approxMaterialLabel: "長さ",
                 sizeNotesLabel: "サイズ備考",
                 flowerNamePlaceholder: "必要な花材について詳しくご記入ください（例：バラ 赤 5本、カスミソウ 白 1束）",
                 colorPlaceholder: "希望する色をご記入ください（例：赤系、白と緑）",
                 quantityPlaceholder: "必要な数量をご記入ください（例：各10本、合計20個）",
-                approxMaterialPlaceholder: "おおよその花材の種類やイメージをご記入ください（例：枝物中心、小花で繊細に）",
+                approxMaterialPlaceholder: "長さをご記入ください（例：80cm、1m程度）",
                 sizeNotesPlaceholder: "サイズに関する特別な要望や追加の備考があればご記入ください（例：高さ1m以内、幅50cm程度）",
                 sketchUpload: "スケッチ / 参考画像のアップロード",
                 uploadPrompt: "クリックしてスケッチ/画像をアップロード",
@@ -522,13 +565,13 @@
                 required: "必須",
                 optional: "任意",
                 orderSubmitted: "注文が正常に送信されました！",
-                footerText: "© 2025 第106回草月いけばな展 | Powered by Bloemenwinkel"
+                footerText: "© 2026 第108回草月いけばな展 | Powered by De Bloemen winkel"
             },
             en: {
-                mainTitle: "The 106th Sogetsu Annual Exhibition Flower Material Order",
+                mainTitle: "The 108th Sogetsu Annual Exhibition Flower Material Order",
                 mainSubtitle: "Online Order Sheet",
                 selectLanguageLabel: "Select Language:",
-                appTitle: "The 106th Sogetsu Annual Exhibition",
+                appTitle: "The 108th Sogetsu Annual Exhibition",
                 appSubtitle: "Flower Material Order Form",
                 contactTo: "To: De Bloemenwinkel Bloemenwinkel",
                 contactEmail: "E-mail: deblwinkel@gmail.com",
@@ -557,22 +600,21 @@
                 sizePlaceholder: "Enter size",
                 scheduleLabel: "Schedule", // New translation key
                 arrangementDatePlaceholder: "Select date",
-                // receptionTimePlaceholder: "Select time", // Removed
-                // morning: "Morning (9:00-12:00)", // Removed
-                // afternoon: "Afternoon (12:00-17:00)", // Removed
-                // evening: "Evening (17:00-20:00)", // Removed
+                timeLabel: "Time",
+                hourPlaceholder: "Hour",
+                minutePlaceholder: "Min",
                 flowerOrderDetailsSection: "Flower Material Order Details",
                 tableHeaderItem: "Item",
                 tableHeaderDetail: "Details",
-                flowerNameLabel: "Flower Name",
+                flowerNameLabel: "Flower material name",
                 colorLabel: "Color",
-                quantityLabel: "Quantity",
-                approxMaterialLabel: "Approx. Materials",
+                quantityLabel: "Order quantity",
+                approxMaterialLabel: "Length",
                 sizeNotesLabel: "Size/Notes",
                 flowerNamePlaceholder: "Please describe the required flower materials in detail (e.g., Red Roses 5, White Gypsophila 1 bunch)",
                 colorPlaceholder: "Please specify preferred colors (e.g., Red tones, White and Green)",
                 quantityPlaceholder: "Please specify the required quantity (e.g., 10 of each, 20 total)",
-                approxMaterialPlaceholder: "Please describe the approximate type or image of materials (e.g., branch-focused, delicate with small flowers)",
+                approxMaterialPlaceholder: "Please enter the length (e.g., 80cm, approx. 1m)",
                 sizeNotesPlaceholder: "Please add any special requests or notes regarding size (e.g., within 1m height, approx 50cm width)",
                 sketchUpload: "Upload Sketch / Reference Images",
                 uploadPrompt: "Click to upload sketches/images",
@@ -581,13 +623,13 @@
                 required: "Required",
                 optional: "Optional",
                 orderSubmitted: "Order submitted successfully!",
-                footerText: "© 2025 The 106th Sogetsu Annual Exhibition | Powered by Bloemenwinkel"
+                footerText: "© 2026 The 108th Sogetsu Annual Exhibition | Powered by De Bloemen winkel"
             },
             'zh-CN': {
-                mainTitle: "第106届草月插花展 花材订购表",
+                mainTitle: "第108届草月插花展 花材订购表",
                 mainSubtitle: "在线订购表",
                 selectLanguageLabel: "选择语言:",
-                appTitle: "第106届草月插花展",
+                appTitle: "第108届草月插花展",
                 appSubtitle: "花材订购表",
                 contactTo: "致：De Bloemenwinkel Bloemenwinkel",
                 contactEmail: "电子邮件: deblwinkel@gmail.com",
@@ -616,22 +658,21 @@
                 sizePlaceholder: "请输入尺寸",
                 scheduleLabel: "日程", // New translation key
                 arrangementDatePlaceholder: "选择日期",
-                // receptionTimePlaceholder: "选择时间", // Removed
-                // morning: "上午 (9:00-12:00)", // Removed
-                // afternoon: "下午 (12:00-17:00)", // Removed
-                // evening: "晚上 (17:00-20:00)", // Removed
+                timeLabel: "时间",
+                hourPlaceholder: "时",
+                minutePlaceholder: "分",
                 flowerOrderDetailsSection: "花材订购详情",
                 tableHeaderItem: "项目",
                 tableHeaderDetail: "详细信息",
                 flowerNameLabel: "花材名称",
                 colorLabel: "颜色",
                 quantityLabel: "订购数量",
-                approxMaterialLabel: "大致花材",
+                approxMaterialLabel: "长度",
                 sizeNotesLabel: "尺寸/备注",
                 flowerNamePlaceholder: "请详细填写所需花材（例：红玫瑰 5支，白色满天星 1束）",
                 colorPlaceholder: "请填写期望的颜色（例：红色系，白色和绿色）",
                 quantityPlaceholder: "请填写所需数量（例：每种10个，共20个）",
-                approxMaterialPlaceholder: "请填写大致花材种类或意象（例：以枝条为主，小花精致）",
+                approxMaterialPlaceholder: "请填写长度（例：80厘米、约1米）",
                 sizeNotesPlaceholder: "请填写尺寸方面的特殊要求或附加备注（例：高度1米以内，宽度约50厘米）",
                 sketchUpload: "上传草图 / 参考图片",
                 uploadPrompt: "点击上传草图/图片",
@@ -640,13 +681,13 @@
                 required: "必填",
                 optional: "可选",
                 orderSubmitted: "订单已成功提交！",
-                footerText: "© 2025 第106届草月插花展 | Powered by Bloemenwinkel"
+                footerText: "© 2026 第108届草月插花展 | Powered by De Bloemen winkel"
             },
             ko: {
-                mainTitle: "제106회 소게츠 이케바나 전시회 화재 주문서",
+                mainTitle: "제108회 소게츠 이케바나 전시회 화재 주문서",
                 mainSubtitle: "온라인 주문서",
                 selectLanguageLabel: "언어 선택:",
-                appTitle: "제106회 소게츠 이케바나 전시회",
+                appTitle: "제108회 소게츠 이케바나 전시회",
                 appSubtitle: "화재 주문서",
                 contactTo: "수신: De Bloemenwinkel 블룸윙클",
                 contactEmail: "이메일: deblwinkel@gmail.com",
@@ -675,22 +716,21 @@
                 sizePlaceholder: "크기를 기입해주세요",
                 scheduleLabel: "일정", // New translation key
                 arrangementDatePlaceholder: "날짜 선택",
-                // receptionTimePlaceholder: "시간 선택", // Removed
-                // morning: "오전 (9:00-12:00)", // Removed
-                // afternoon: "오후 (12:00-17:00)", // Removed
-                // evening: "저녁 (17:00-20:00)", // Removed
+                timeLabel: "시간",
+                hourPlaceholder: "시",
+                minutePlaceholder: "분",
                 flowerOrderDetailsSection: "화재 주문 상세",
                 tableHeaderItem: "항목",
                 tableHeaderDetail: "상세 기입란",
                 flowerNameLabel: "화재명",
                 colorLabel: "색상",
                 quantityLabel: "발주 수량",
-                approxMaterialLabel: "대략적인 화재",
+                approxMaterialLabel: "길이",
                 sizeNotesLabel: "사이즈 비고",
                 flowerNamePlaceholder: "필요한 화재를 자세히 기입해주세요 (예: 장미 빨강 5송이, 안개꽃 흰색 1단)",
                 colorPlaceholder: "원하는 색상을 기입해주세요 (예: 붉은 계열, 흰색과 녹색)",
                 quantityPlaceholder: "필요한 수량을 기입해주세요 (例: 각 10개, 총 20個)",
-                approxMaterialPlaceholder: "대략적인 화재 종류나 이미지를 기입해주세요 (예: 가지 위주, 작은 꽃으로 섬세하게)",
+                approxMaterialPlaceholder: "길이를 기입해주세요 (예: 80cm, 약 1m)",
                 sizeNotesPlaceholder: "사이즈에 대한 특별 요청이나 추가 비고 사항을 기입해주세요 (例: 높이 1m 이내, 폭 約 50cm)",
                 sketchUpload: "스케치 / 참고 이미지 업로드",
                 uploadPrompt: "스케치/이미지 업로드하려면 클릭",
@@ -699,7 +739,7 @@
                 required: "필수",
                 optional: "선택",
                 orderSubmitted: "주문이 성공적으로 제출되었습니다！",
-                footerText: "© 2025 제106회 소게츠 이케바나 전시회 | Powered by 블룸윙클"
+                footerText: "© 2026 제108회 소게츠 이케바나 전시회 | Powered by De Bloemen winkel"
             }
         };
 
@@ -749,6 +789,9 @@
             document.getElementById('artworkSizeH').placeholder = t.sizePlaceholder;
             document.getElementById('scheduleLabel').innerHTML = `${t.scheduleLabel}<span class="text-red-500 ml-1">*</span>`; // 新しいラベルID
             document.getElementById('arrangementDate').placeholder = t.arrangementDatePlaceholder; // type="date" の placeholder は表示されないが、念のため
+            document.getElementById('timeLabel').textContent = t.timeLabel;
+            document.getElementById('hourPlaceholder').textContent = t.hourPlaceholder;
+            document.getElementById('minutePlaceholder').textContent = t.minutePlaceholder;
             // document.getElementById('receptionTimePlaceholder').textContent = t.receptionTimePlaceholder; // Removed
             // document.getElementById('morning').textContent = t.morning; // Removed
             // document.getElementById('afternoon').textContent = t.afternoon; // Removed
@@ -882,7 +925,37 @@
             document.getElementById('artworkSizeD').addEventListener('input', (e) => handleInputChange('artworkSizeD', e.target.value));
             document.getElementById('artworkSizeH').addEventListener('input', (e) => handleInputChange('artworkSizeH', e.target.value));
             document.getElementById('arrangementDate').addEventListener('input', (e) => handleInputChange('arrangementDate', e.target.value));
-            document.getElementById('arrangementTime').addEventListener('input', (e) => handleInputChange('arrangementTime', e.target.value)); // Changed from 'change' to 'input' for time
+
+            // 時・分セレクトを初期化（ネイティブtime入力より指定しやすくする）
+            const hourSelect = document.getElementById('arrangementHour');
+            const minuteSelect = document.getElementById('arrangementMinute');
+            const timeHidden = document.getElementById('arrangementTime');
+
+            for (let h = 0; h <= 23; h++) {
+                const value = String(h).padStart(2, '0');
+                const option = document.createElement('option');
+                option.value = value;
+                option.textContent = value;
+                hourSelect.appendChild(option);
+            }
+            for (let m = 0; m <= 59; m++) {
+                const value = String(m).padStart(2, '0');
+                const option = document.createElement('option');
+                option.value = value;
+                option.textContent = value;
+                minuteSelect.appendChild(option);
+            }
+
+            function syncArrangementTime() {
+                const hour = hourSelect.value;
+                const minute = minuteSelect.value;
+                const combined = hour !== '' && minute !== '' ? `${hour}:${minute}` : '';
+                timeHidden.value = combined;
+                handleInputChange('arrangementTime', combined);
+            }
+
+            hourSelect.addEventListener('change', syncArrangementTime);
+            minuteSelect.addEventListener('change', syncArrangementTime);
 
             // 花材テーブルの入力フィールドのイベントリスナーを設定
             for (let i = 0; i < 5; i++) {
