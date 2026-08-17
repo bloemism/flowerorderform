@@ -211,11 +211,6 @@
                             <label id="emailLabel" class="block text-sm font-semibold required text-gray-700"></label>
                             <input type="email" id="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all" required name="email">
                         </div>
-
-                        <div class="space-y-2">
-                            <label id="exhibitorNumberLabel" class="block text-sm font-semibold required text-gray-700"></label>
-                            <input type="text" id="exhibitorNumber" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all" required name="exhibitorNumber">
-                        </div>
                     </div>
                 </div>
 
@@ -520,7 +515,7 @@
                 appSubtitle: "花材注文書",
                 contactTo: "宛先：De Bloemenwinkel ブルームウィンクル",
                 contactEmail: "E-mail: deblwinkel@gmail.com",
-                deadline: "下記の情報を詳細に記入し、スケッチと併せて9月18日（木）までに上記のメールアドレスへご提出ください。",
+                deadline: "下記の情報を詳細に記入し、スケッチと併せて9月28日（月）までに上記のメールアドレスへご提出ください。",
                 paymentInfo: "請求金額は花屋「Bloemenwinkel」より記載しております。クレジットカードでお支払いお知らせ致します。",
                 personalInfoSection: "お客様情報",
                 nameLabel: "お名前",
@@ -529,8 +524,6 @@
                 phonePlaceholder: "電話番号をご記入ください",
                 emailLabel: "E-mailアドレス",
                 emailPlaceholder: "メールアドレスをご記入ください",
-                exhibitorNumberLabel: "出品者番号 / ID",
-                exhibitorPlaceholder: "出品者番号をご記入ください",
                 exhibitionInfoSection: "出展情報",
                 exhibitionPeriodLabel: "出展期間",
                 periodPlaceholder: "展示期間を選択してください",
@@ -578,7 +571,7 @@
                 appSubtitle: "Flower Material Order Form",
                 contactTo: "To: De Bloemenwinkel Bloemenwinkel",
                 contactEmail: "E-mail: deblwinkel@gmail.com",
-                deadline: "Please fill in the following information in detail and submit it with your sketch to the above email address by Thursday, September 18th.",
+                deadline: "Please fill in the following information in detail and submit it with your sketch to the above email address by Monday, September 28th.",
                 paymentInfo: "The billing amount will be communicated to you by the florist \"Bloemenwinkel\". You will be notified about credit card payment.",
                 personalInfoSection: "Customer Information",
                 nameLabel: "Full Name",
@@ -587,8 +580,6 @@
                 phonePlaceholder: "Enter your phone number",
                 emailLabel: "E-mail Address",
                 emailPlaceholder: "Enter your email address",
-                exhibitorNumberLabel: "Exhibitor Number / ID",
-                exhibitorPlaceholder: "Enter your exhibitor number",
                 exhibitionInfoSection: "Exhibition Information",
                 exhibitionPeriodLabel: "Exhibition Period",
                 periodPlaceholder: "Select exhibition period",
@@ -636,7 +627,7 @@
                 appSubtitle: "花材订购表",
                 contactTo: "致：De Bloemenwinkel Bloemenwinkel",
                 contactEmail: "电子邮件: deblwinkel@gmail.com",
-                deadline: "请详细填写以下信息，并于9月18日（星期四）前连同草图提交至上述电子邮件地址。",
+                deadline: "请详细填写以下信息，并于9月28日（星期一）前连同草图提交至上述电子邮件地址。",
                 paymentInfo: "账单金额将由花店“Bloemenwinkel”通知您。您将收到信用卡支付通知。",
                 personalInfoSection: "客户信息",
                 nameLabel: "姓名",
@@ -645,8 +636,6 @@
                 phonePlaceholder: "请输入您的电话号码",
                 emailLabel: "电子邮件地址",
                 emailPlaceholder: "请输入您的电子邮件地址",
-                exhibitorNumberLabel: "参展商编号 / ID",
-                exhibitorPlaceholder: "请输入您的参展商编号",
                 exhibitionInfoSection: "展览信息",
                 exhibitionPeriodLabel: "展览期间",
                 periodPlaceholder: "请选择展览期间",
@@ -694,7 +683,7 @@
                 appSubtitle: "화재 주문서",
                 contactTo: "수신: De Bloemenwinkel 블룸윙클",
                 contactEmail: "이메일: deblwinkel@gmail.com",
-                deadline: "아래 정보를 자세히 기입하시고, 스케치와 함께 9월 18일(목)까지 위 이메일 주소로 제출해 주십시오。",
+                deadline: "아래 정보를 자세히 기입하시고, 스케치와 함께 9월 28일(월)까지 위 이메일 주소로 제출해 주십시오。",
                 paymentInfo: "청구 금액은 꽃집 \"블룸윙클\"에서 알려드립니다. 신용카드로 결제 안내를 받으실 것입니다。",
                 personalInfoSection: "고객 정보",
                 nameLabel: "이름",
@@ -703,8 +692,6 @@
                 phonePlaceholder: "전화번호를 기입해주세요",
                 emailLabel: "이메일 주소",
                 emailPlaceholder: "이메일 주소를 기입해주세요",
-                exhibitorNumberLabel: "출품자 번호 / ID",
-                exhibitorPlaceholder: "출품자 번호를 기입해주세요",
                 exhibitionInfoSection: "전시 정보",
                 exhibitionPeriodLabel: "전시 기간",
                 periodPlaceholder: "전시 기간을 선택해주세요",
@@ -772,8 +759,6 @@
             document.getElementById('phone').placeholder = t.phonePlaceholder;
             document.getElementById('emailLabel').innerHTML = `${t.emailLabel}<span class="text-red-500 ml-1">*</span>`;
             document.getElementById('email').placeholder = t.emailPlaceholder;
-            document.getElementById('exhibitorNumberLabel').innerHTML = `${t.exhibitorNumberLabel}<span class="text-red-500 ml-1">*</span>`;
-            document.getElementById('exhibitorNumber').placeholder = t.exhibitorPlaceholder;
 
             // 出展情報セクション
             document.getElementById('exhibitionInfoSection').textContent = t.exhibitionInfoSection;
@@ -843,7 +828,7 @@
 
         // フォームデータと画像プレビューの状態管理 (JavaScript)
         let formData = {
-            name: '', phone: '', email: '', exhibitorNumber: '',
+            name: '', phone: '', email: '',
             period: '', seatNumber: '',
             artworkSizeW: '', artworkSizeD: '', artworkSizeH: '',
             arrangementDate: '', arrangementTime: '',
@@ -921,7 +906,6 @@
             document.getElementById('name').addEventListener('input', (e) => handleInputChange('name', e.target.value));
             document.getElementById('phone').addEventListener('input', (e) => handleInputChange('phone', e.target.value));
             document.getElementById('email').addEventListener('input', (e) => handleInputChange('email', e.target.value));
-            document.getElementById('exhibitorNumber').addEventListener('input', (e) => handleInputChange('exhibitorNumber', e.target.value));
             document.getElementById('period').addEventListener('change', (e) => handleInputChange('period', e.target.value));
             document.getElementById('seatNumber').addEventListener('input', (e) => handleInputChange('seatNumber', e.target.value));
             document.getElementById('artworkSizeW').addEventListener('input', (e) => handleInputChange('artworkSizeW', e.target.value));
